@@ -4,7 +4,7 @@
 * [科学研究費助成事業データベース](https://kaken.nii.ac.jp/ja/) (※要 API キー)
 
 ## 実行例
-各 Web リソース用の情報取得スクリプトと、統合版のスクリプトを用意しています。基本的な使い方はいずれも、研究者名が一行ずつ書かれたテキストファイル (UTF-8) を引数に与えて実行するのみです。Windows 11 上でのみ動作確認しています。ここでは、サンプル用の研究者リスト [sample_scholars.txt](https://github.com/yshhrknmr/JapanScholarScraper/blob/main/sample_scholars.txt) を使って説明します。出力ファイルは [sample_output](https://github.com/yshhrknmr/JapanScholarScraper/tree/main/sample_output) ディレクトリにあります。
+各 Web リソース用の情報取得スクリプトと、統合版のスクリプトを用意しています。基本的な使い方はいずれも、研究者名が一行ずつ書かれたテキストファイル (UTF-8) を引数に与えて実行するのみです。Windows 11 上の Python 3.11.9 でのみ動作確認しています。ここでは、サンプル用の研究者リスト [sample_scholars.txt](https://github.com/yshhrknmr/JapanScholarScraper/blob/main/sample_scholars.txt) を使って説明します。出力ファイルのサンプルは [sample_output](https://github.com/yshhrknmr/JapanScholarScraper/tree/main/sample_output) ディレクトリにあります。
 
 > [!CAUTION]
 > 研究者名を記録したテキストファイルは必ず UTF-8 エンコーディングで記録してください。
@@ -37,7 +37,7 @@
 ```
 > git clone https://github.com/yshhrknmr/JapanScholarScraper.git
 ```
-以下の作業は 
+以下の作業は `JapanScholarScraper` リポジトリ内で行います。
 
 ### Python ライブラリのインストール
 以下の Python ライブラリを手動でインストール
@@ -61,7 +61,7 @@ researchmap:
   # selenium の webdriver が偽装する Web ブラウザのエージェント文字列
   user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 ```
-user_agent に、ご自身が普段使っている Web ブラウザのエージェント情報を記入してください。不明の場合は、例えば [こちらのURL](https://testpage.jp/tool/ip_user_agent.php) にある `HTTP_USER_AGENT` という文字列をコピペしてください。
+`user_agent` に、ご自身が普段使っている Web ブラウザのエージェント情報を記入してください。不明の場合は、例えば [こちらのURL](https://testpage.jp/tool/ip_user_agent.php) にある `HTTP_USER_AGENT` という文字列をコピペしてください。
 #### 科研費
 ```
 kakenhi:
@@ -69,4 +69,9 @@ kakenhi:
   # 科研費データベースの API キー. 即時発行可能. 詳細: https://support.nii.ac.jp/ja/cinii/api/developer 
   appid:  'PUT_YOUR_OWN_API_KEY'
 ```
-`appid` は科研費データベースにアクセスするための API キーです。設定ファイル内の `PUT_YOUR_OWN_API_KEY` という文字列を置き換えてください。スクリプトの実行時引数で指定することもできます。API キーの発行は、[こちらのURL](https://support.nii.ac.jp/ja/cinii/api/developer) の「デベロッパー登録」で即座に発行できます。
+`appid` は科研費データベースにアクセスするための API キーです。設定ファイル内の `PUT_YOUR_OWN_API_KEY` という文字列を置き換えてください。スクリプトの実行時引数で指定することもできます。API キーは、[こちらのURL](https://support.nii.ac.jp/ja/cinii/api/developer) の「デベロッパー登録」で即座に発行できます。
+
+## 制限事項
+* 各 Web リソースには、必ずしも最新かつ正確な情報が記載されているとは限りません。正確な情報は必ずご自身で確認してください。
+* Researchmap の情報は不正確な情報が多いです。特に論文の種別や雑誌・学会名などは記述がバラバラです。スクリプト内で日本語・英語の区別などをヒューリスティックに判定していますが、誤りが含まれている可能性が高いです。
+* 現在は同姓同名の研究者に対応していません。近日対応予定です。
