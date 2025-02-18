@@ -69,7 +69,7 @@ kakenhi:
   # 科研費データベースの API キー. 即時発行可能. 詳細: https://support.nii.ac.jp/ja/cinii/api/developer 
   appid:  'PUT_YOUR_OWN_API_KEY'
 ```
-`appid` は科研費データベースにアクセスするための API キーです。設定ファイル内の `PUT_YOUR_OWN_API_KEY` という文字列を置き換えてください。スクリプトの実行時引数で指定することもできます。API キーは、[こちらのURL](https://support.nii.ac.jp/ja/cinii/api/developer) の「デベロッパー登録」で即座に発行できます。
+`appid` は科研費データベースにアクセスするための API キーです。[こちらのURL](https://support.nii.ac.jp/ja/cinii/api/developer) の「デベロッパー登録」から取得し (必要事項の入力後に即座に発行されます)、設定ファイル内の `PUT_YOUR_OWN_API_KEY` という文字列を置き換えてください。スクリプトの実行時引数で指定することもできます。
 
 ## 制限事項
 * 各 Web リソースには、必ずしも最新かつ正確な情報が記載されているとは限りません。正確な情報は必ずご自身で確認してください。
