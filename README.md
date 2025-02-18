@@ -61,7 +61,7 @@ researchmap:
   # selenium の webdriver が偽装する Web ブラウザのエージェント文字列
   user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 ```
-`user_agent` に、ご自身が普段使っている Web ブラウザのエージェント情報を記入してください。不明の場合は、例えば [こちらのURL](https://testpage.jp/tool/ip_user_agent.php) にある `HTTP_USER_AGENT` という文字列をコピペしてください。
+`user_agent` に、ご自身が普段使っている Web ブラウザのエージェント情報を記入してください。不明の場合は、例えば [こちらのURL](https://testpage.jp/tool/ip_user_agent.php) にある `HTTP_USER_AGENT` の直下に表示される文字列をコピペしてください。
 #### 科研費
 ```
 kakenhi:
