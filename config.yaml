@@ -8,6 +8,6 @@ researchmap:
 
 kakenhi:
   # 科研費データベースの API キー. 即時発行可能. 詳細: https://support.nii.ac.jp/ja/cinii/api/developer 
-  appid:  '1kV6admuyBzt9xWc0aq5'
+  appid:  'PUT_YOUR_OWN_API_KEY'
   # デフォルトの出力 Excel ファイル名
   default_output: 'summary_kakenhi.xlsx'
