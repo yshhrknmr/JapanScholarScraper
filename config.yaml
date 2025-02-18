@@ -1,0 +1,13 @@
+researchmap:
+  # デフォルトの出力 Excel ファイル名
+  default_output: 'summary_researchmap.xlsx'
+  # selenium の webdriver が偽装する Web ブラウザのエージェント文字列
+  user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+  # 検索エンジンへのアクセスを表示するなら false, 表示しないなら true
+  headless: true
+
+kakenhi:
+  # 科研費データベースの API キー. 即時発行可能. 詳細: https://support.nii.ac.jp/ja/cinii/api/developer 
+  appid:  '1kV6admuyBzt9xWc0aq5'
+  # デフォルトの出力 Excel ファイル名
+  default_output: 'summary_kakenhi.xlsx'
