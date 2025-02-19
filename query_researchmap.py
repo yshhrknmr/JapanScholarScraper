@@ -21,6 +21,7 @@ def main():
         print(f'Note: args.output_excel set as: {args.output_excel}')
 
     options = Options()
+    options.add_argument('--disable-usb-discovery')
     if config['researchmap']['user_agent'] != '':
         options.add_argument(f"--user-agent={config['researchmap']['user_agent']}")
     if config['researchmap']['headless']:
