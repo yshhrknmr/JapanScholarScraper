@@ -23,6 +23,7 @@ def main():
         print(f'Note: args.kakenhi_appid set as: {args.kakenhi_appid}')
 
     options = Options()
+    options.add_argument('--disable-usb-discovery')
     if config['researchmap']['user_agent'] != '':
         options.add_argument(f"--user-agent={config['researchmap']['user_agent']}")
     if config['researchmap']['headless']:
