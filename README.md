@@ -42,7 +42,7 @@
 ### Python ライブラリのインストール
 以下の Python ライブラリを手動でインストール
 ```
-> python -m pip install pyyaml selenium pandas openpyxl
+> python -m pip install requests pyyaml selenium pandas openpyxl
 ```
 するか、requirements.txt を使って一気にインストールしてください。
 ```
