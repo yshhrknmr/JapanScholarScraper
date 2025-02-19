@@ -54,6 +54,7 @@ Researchmap の問い合わせのために Google Chrome を呼び出してい�
 
 ### 設定ファイルの編集
 設定ファイル [config.yaml](https://github.com/yshhrknmr/JapanScholarScraper/blob/main/config.yaml) を編集してください。特に重要な項目は以下です。
+
 #### Researchmap
 ```
 researchmap:
@@ -71,7 +72,69 @@ kakenhi:
 ```
 `appid` は科研費データベースにアクセスするための API キーです。[こちらのURL](https://support.nii.ac.jp/ja/cinii/api/developer) の「デベロッパー登録」から取得し (必要事項の入力後に即座に発行されます)、設定ファイル内の `PUT_YOUR_OWN_API_KEY` という文字列を置き換えてください。スクリプトの実行時引数で指定することもできます。
 
+## 各スクリプトの詳細
+### Researchmap
+#### 使い方の詳細
+```
+> python query_researchmap.py --help
+usage: query_researchmap.py [-h] -i INPUT_LIST [-o OUTPUT_EXCEL]
+
+漢字氏名からresearchmapのURLを検索し、Excelファイルに出力
+
+options:
+  -h, --help            show this help message and exit
+  -i INPUT_LIST, --input_list INPUT_LIST
+                        漢字氏名が1行ずつ記載された入力テキストファイル(UTF-8)
+  -o OUTPUT_EXCEL, --output_excel OUTPUT_EXCEL
+                        出力するExcelファイル名
+```
+#### 仕様
+Researchmap から各研究者の情報を得るには、研究者ごとに設定された ID を取得する必要があります。研究者氏名とその ID を紐づける API は存在するのですが、研究機関の担当者しか利用できません。そこで、一般の検索エンジン (DuckDuckGo) を利用し、研究者氏名をクエリとして ID を取得しています。検索エンジンから BAN されるのを避けるために、1 人問い合わせるたびにランダムに 1～4 秒の待ち時間を入れています。しかしこれでも BAN される場合があります。設定ファイルの `user_agent` に普段使っている Web ブラウザのエージェント情報を記入してもらえば回避できるはずです。
+
+Researchmap の研究者ごとの ID を取得したら、それを用いて研究者情報が記録された JSON ファイルを取得します。しかし Researchmap の記載内容は研究者ごとにバラバラで、論文の学会・雑誌名なども表記がバラバラです。スクリプト内で論文の種別を、国際雑誌、和文雑誌、国際会議、その他に分類していますが、ヒューリスティックな判定方法なので、誤りを含んでいる可能性が高いです。
+
+### 科研費
+#### 使い方の詳細
+```
+> python query_kakenhi.py --help
+usage: query_kakenhi.py [-h] -i INPUT_LIST [-o OUTPUT_EXCEL] [-a APPID]
+
+漢字氏名から科研費データベースを検索し、Excelファイルに出力します。
+
+options:
+  -h, --help            show this help message and exit
+  -i INPUT_LIST, --input_list INPUT_LIST
+                        漢字氏名が1行ずつ記載された入力テキストファイル(UTF-8)
+  -o OUTPUT_EXCEL, --output_excel OUTPUT_EXCEL
+                        出力するExcelファイル名
+  -a APPID, --appid APPID
+                        NIIデベロッパーのAPIキー, 詳細: https://support.nii.ac.jp/ja/cinii/api/developer
+```
+#### 仕様
+NII の API を利用して情報を取得します (そのため API キーが必要です)。問い合わせ件数がそれほど多くないという前提で、問い合わせの待ち時間を入れていないので、高速に問い合わせ可能です。
+
+研究者ごとの情報を記録した JSON ファイルを取得し、研究代表者となっている研究課題の種別 (基盤(A)(B)(C)など) とその実施期間をまとめて出力します。同じ種別で複数回採択されている場合は、種別ごとに集約します。簡略化のため種別名に含まれる「研究」というを削除しているので、種別名によっては不自然になっている可能性があります。なお「特別研究員奨励費」は、教員が指導している留学生などの研究予算だと見なして除外しています。
+
+### 統合版
+#### 使い方の詳細
+```
+> python query_all.py --help
+usage: query_all.py [-h] -i INPUT_LIST [-o OUTPUT_EXCEL] [-a KAKENHI_APPID]
+
+漢字氏名からresearchmapのURLを検索し、Excelファイルに出力
+
+options:
+  -h, --help            show this help message and exit
+  -i INPUT_LIST, --input_list INPUT_LIST
+                        漢字氏名が1行ずつ記載された入力テキストファイル(UTF-8)
+  -o OUTPUT_EXCEL, --output_excel OUTPUT_EXCEL
+                        出力するExcelファイル名
+  -a KAKENHI_APPID, --kakenhi_appid KAKENHI_APPID
+                        NIIデベロッパーのAPIキー, 詳細: https://support.nii.ac.jp/ja/cinii/api/developer
+```
+#### 仕様
+各 Web リソース用のスクリプトを統合しただけなので、詳細は各スクリプトの説明を参照してください。
+
 ## 制限事項
-* 各 Web リソースには、必ずしも最新かつ正確な情報が記載されているとは限りません。正確な情報は必ずご自身で確認してください。
-* Researchmap の情報は不正確な情報が多いです。特に論文の種別や雑誌・学会名などは記述がバラバラです。スクリプト内で日本語・英語の区別などをヒューリスティックに判定していますが、誤りが含まれている可能性が高いです。
+* 各 Web リソースには、必ずしも最新かつ正確な情報が記載されているとは限りません。最新かつ正確な情報は必ずご自身で確認してください。
 * 現在は同姓同名の研究者に対応していません。近日対応予定です。
